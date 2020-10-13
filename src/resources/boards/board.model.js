@@ -14,15 +14,16 @@ class Board {
   constructor({ title = 'testTitle', columns = [], id }, update = false) {
     if (update) {
       this.id = id;
+      this.columns = columns;
     } else {
       this.id = uuid();
-      columns = columns.forEach(a => {
+      this.columns = columns.map(a => {
         a.id = uuid();
+        return a;
       });
     }
 
     this.title = title;
-    this.columns = columns;
   }
 
   static find() {
@@ -60,6 +61,7 @@ class Board {
 
   static insert(obj) {
     const board = new Board(obj);
+    console.log(board);
     boardsMemory.push(board);
     return board;
   }

@@ -1,16 +1,16 @@
 const Board = require('./board.model');
 
 async function add(data) {
-  const task = await Board.insert(data);
-  return task;
+  const board = await Board.insert(data);
+  return board;
 }
 
 async function get(id) {
-  const task = await Board.findById(id);
-  if (task === undefined) {
+  const board = await Board.findById(id);
+  if (board === undefined) {
     throw new Error("board doesn't exists");
   }
-  return task;
+  return board;
 }
 
 async function getAll() {
