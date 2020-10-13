@@ -1,4 +1,5 @@
 const Task = require('./task.model');
+const { ErrorHandler } = require('../../helpers/customError.js');
 
 async function add(data) {
   const task = await Task.insert(data);
@@ -8,7 +9,7 @@ async function add(data) {
 async function get(id) {
   const task = await Task.findById(id);
   if (task === undefined) {
-    throw new Error("task doesn't exists");
+    throw new ErrorHandler(404, "task doesn't exists");
   }
   return task;
 }

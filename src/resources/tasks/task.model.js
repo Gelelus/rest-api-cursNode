@@ -1,4 +1,5 @@
 const uuid = require('uuid');
+const { ErrorHandler } = require('../../helpers/customError.js');
 
 let tasksMemory = [
   // {
@@ -62,7 +63,7 @@ class Task {
       }
     }
 
-    throw new Error("task doesn't exist");
+    throw new ErrorHandler(404, "task doesn't exist");
   }
 
   static findByIdAndDelete(id) {
@@ -73,7 +74,7 @@ class Task {
       }
     }
 
-    throw new Error("task doesn't exist");
+    throw new ErrorHandler(404, "task doesn't exist");
   }
 
   static deleteUserRelationship(userId) {

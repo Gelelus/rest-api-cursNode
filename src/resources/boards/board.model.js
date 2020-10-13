@@ -1,5 +1,6 @@
 const uuid = require('uuid');
 
+const { ErrorHandler } = require('../../helpers/customError.js');
 const Task = require('../tasks/task.model');
 
 const boardsMemory = [
@@ -44,7 +45,7 @@ class Board {
       }
     }
 
-    throw new Error("board doesn't exist");
+    throw new ErrorHandler(404, "board doesn't exist");
   }
 
   static findByIdAndDelete(id) {
@@ -56,7 +57,7 @@ class Board {
       }
     }
 
-    throw new Error("board doesn't exist");
+    throw new ErrorHandler(404, "board doesn't exist");
   }
 
   static insert(obj) {

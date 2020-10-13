@@ -1,8 +1,7 @@
 const service = require('./task.service');
-const status = require('../../helpers/errorStatus');
 
 class TaskController {
-  static async addTask(req, res) {
+  static async addTask(req, res, next) {
     try {
       const result = await service.add({
         ...req.body,
@@ -11,20 +10,22 @@ class TaskController {
 
       res.status(200).send(result);
     } catch (e) {
-      res.status(status(e)).send({ error: e.message });
+      next(e);
+      return;
     }
   }
 
-  static async deleteTask(req, res) {
+  static async deleteTask(req, res, next) {
     try {
       const result = await service.del(req.params.id);
       res.status(200).send(result);
     } catch (e) {
-      res.status(status(e)).send({ error: e.message });
+      next(e);
+      return;
     }
   }
 
-  static async updateTask(req, res) {
+  static async updateTask(req, res, next) {
     try {
       const result = await service.update(
         {
@@ -35,25 +36,28 @@ class TaskController {
       );
       res.status(200).send(result);
     } catch (e) {
-      res.status(status(e)).send({ error: e.message });
+      next(e);
+      return;
     }
   }
 
-  static async getTask(req, res) {
+  static async getTask(req, res, next) {
     try {
       const result = await service.get(req.params.id);
       res.status(200).send(result);
     } catch (e) {
-      res.status(status(e)).send({ error: e.message });
+      next(e);
+      return;
     }
   }
 
-  static async getAllTasks(req, res) {
+  static async getAllTasks(req, res, next) {
     try {
       const result = await service.getAll(req.params.boardId);
       res.status(200).send(result);
     } catch (e) {
-      res.status(status(e)).send({ error: e.message });
+      next(e);
+      return;
     }
   }
 }
