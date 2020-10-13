@@ -1,6 +1,6 @@
 const uuid = require('uuid');
 
-const tasksMemory = [
+let tasksMemory = [
   // {
   //   id: 'testID123',
   //   title: 'title123',
@@ -44,8 +44,8 @@ class Task {
     return task;
   }
 
-  static find() {
-    return tasksMemory;
+  static find(boardId) {
+    return tasksMemory.filter(a => a.boardId === boardId);
   }
 
   static findById(id) {
@@ -86,13 +86,7 @@ class Task {
   }
 
   static deleteTasksWithBoardID(boardId) {
-    console.log(tasksMemory);
-    for (let i = 0; i < tasksMemory.length; i++) {
-      if (tasksMemory[i].boardId === boardId) {
-        tasksMemory.splice(i, 1);
-      }
-    }
-    console.log(tasksMemory);
+    tasksMemory = tasksMemory.filter(a => a.boardId !== boardId);
     return;
   }
 }

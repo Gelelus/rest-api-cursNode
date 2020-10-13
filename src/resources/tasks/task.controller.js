@@ -50,7 +50,7 @@ class TaskController {
 
   static async getAllTasks(req, res) {
     try {
-      const result = await service.getAll();
+      const result = await service.getAll(req.params.boardId);
       res.status(200).send(result);
     } catch (e) {
       res.status(status(e)).send({ error: e.message });

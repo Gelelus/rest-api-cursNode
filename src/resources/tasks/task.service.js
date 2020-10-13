@@ -13,8 +13,8 @@ async function get(id) {
   return task;
 }
 
-async function getAll() {
-  return await Task.find();
+async function getAll(boardId) {
+  return await Task.find(boardId);
 }
 
 async function update(data, id) {
