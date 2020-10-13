@@ -6,7 +6,7 @@ const boardsMemory = [
   // {
   //   id: 'testID123',
   //   title: 'testTitle123',
-  //   columns: ['somecolumn']
+  //   columns: [{id:string, title: string, order: integer}]
   // }
 ];
 
@@ -16,6 +16,9 @@ class Board {
       this.id = id;
     } else {
       this.id = uuid();
+      columns = columns.forEach(a => {
+        a.id = uuid();
+      });
     }
 
     this.title = title;
