@@ -13,8 +13,10 @@ class UserController {
 
   static async deleteUser(req, res, next) {
     try {
-      const result = await service.del(req.params.id);
-      res.status(200).send(result);
+      await service.del(req.params.id);
+      res
+        .status(200)
+        .send({ message: `user with id - ${req.params.id} was deleted` });
     } catch (e) {
       next(e);
       return;

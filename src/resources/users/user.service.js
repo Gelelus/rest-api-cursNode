@@ -2,9 +2,19 @@ const User = require('./user.model');
 const { ErrorHandler } = require('../../helpers/customError.js');
 
 async function add(data) {
-  const user = await User.insert(data);
+  const userTest = await User.findOne({ login: data.login });
+  if (userTest) {
+    throw new ErrorHandler(
+      400,
+      `user with login - ${data.login} already exists`
+    );
+  }
+
+  const user = new User(data);
+  await user.save();
+
   return {
-    id: user.id,
+    id: user._id,
     name: user.name,
     login: user.login
   };
@@ -16,27 +26,33 @@ async function get(id) {
     throw new ErrorHandler(404, "user doesn't exists");
   }
   return {
-    id: user.id,
+    id: user._id,
     name: user.name,
     login: user.login
   };
 }
 
 async function getAll() {
-  return await User.find();
+  return await User.aggregate([
+    { $project: { _id: 0, id: '$_id', name: 1, login: 1 } }
+  ]);
 }
 
 async function update(data, id) {
-  const user = await User.findByIdAndUpdate(data, id);
+  const user = await User.findByIdAndUpdate(id, data, {
+    new: true
+  });
+
   return {
-    id: user.id,
+    id: user._id,
     name: user.name,
     login: user.login
   };
 }
 
 async function del(id) {
-  return await User.findByIdAndDelete(id);
+  await User.findByIdAndDelete(id);
+  return { message: `user with id - ${id} was deleted` };
 }
 
 module.exports = {
