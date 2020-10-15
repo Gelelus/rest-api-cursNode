@@ -38,10 +38,12 @@ async function getAll() {
   ]);
 }
 
-async function update(data, id) {
-  const user = await User.findByIdAndUpdate(id, data, {
-    new: true
-  });
+async function update({ userLogin, password, name }, user) {
+  user.login = userLogin;
+  user.name = name;
+  user.password = password;
+
+  await user.save();
 
   return {
     id: user._id,

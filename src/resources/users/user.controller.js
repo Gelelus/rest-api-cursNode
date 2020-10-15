@@ -25,7 +25,7 @@ class UserController {
 
   static async updateUser(req, res, next) {
     try {
-      const result = await service.update(req.body, req.params.id);
+      const result = await service.update(req.body, req.user);
       res.status(200).send(result);
     } catch (e) {
       next(e);
