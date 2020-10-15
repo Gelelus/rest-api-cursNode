@@ -38,8 +38,10 @@ async function getAll() {
   ]);
 }
 
-async function update({ userLogin, password, name }, user) {
-  user.login = userLogin;
+// eslint-disable-next-line no-shadow
+async function update({ login, password, name }, user) {
+  console.log(user);
+  user.login = login;
   user.name = name;
   user.password = password;
 
@@ -57,8 +59,10 @@ async function del(id) {
   return { message: `user with id - ${id} was deleted` };
 }
 
-async function login({ password, email }) {
-  const user = await User.findByCredentials(email, password);
+// eslint-disable-next-line no-shadow
+async function login({ password, login }) {
+  console.log(password, login);
+  const user = await User.findByCredentials(login, password);
 
   const token = await user.generateAuthToken();
 
