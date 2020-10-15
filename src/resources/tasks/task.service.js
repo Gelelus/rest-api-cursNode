@@ -1,5 +1,8 @@
 const Task = require('./task.model');
 const { ErrorHandler } = require('../../helpers/customError.js');
+const {
+  Types: { ObjectId }
+} = require('mongoose');
 
 async function add(data) {
   const task = new Task(data);
@@ -33,7 +36,7 @@ async function get(id) {
 
 async function getAll(boardId) {
   return await Task.aggregate([
-    { $match: { boardId } },
+    { $match: { boardId: ObjectId(boardId) } },
     {
       $project: {
         _id: 0,
