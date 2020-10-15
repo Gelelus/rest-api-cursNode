@@ -52,6 +52,16 @@ class UserController {
       return;
     }
   }
+
+  static async login(req, res, next) {
+    try {
+      const result = await service.login(req.body);
+      res.status(200).send(result);
+    } catch (e) {
+      next(e);
+      return;
+    }
+  }
 }
 
 module.exports = UserController;

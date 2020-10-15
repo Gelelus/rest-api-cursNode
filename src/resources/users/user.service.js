@@ -55,10 +55,19 @@ async function del(id) {
   return { message: `user with id - ${id} was deleted` };
 }
 
+async function login({ password, email }) {
+  const user = await User.findByCredentials(email, password);
+
+  const token = await user.generateAuthToken();
+
+  return { token };
+}
+
 module.exports = {
   add,
   get,
   update,
   del,
-  getAll
+  getAll,
+  login
 };
