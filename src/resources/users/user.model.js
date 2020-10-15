@@ -12,7 +12,6 @@ const userSchema = new Schema(
     login: {
       type: String,
       required: true,
-      unique: true,
       trim: true
     },
     password: {
@@ -27,9 +26,10 @@ const userSchema = new Schema(
 );
 
 // eslint-disable-next-line space-before-function-paren ,func-names
-userSchema.pre('remove', async function(next) {
+userSchema.pre('findOneAndDelete', async function(next) {
+  const userId = this._conditions._id;
   await Task.updateMany(
-    { userId: this._id },
+    { userId },
     { $set: { userId: null } },
     { multi: true }
   );

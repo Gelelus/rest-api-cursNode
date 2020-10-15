@@ -22,7 +22,7 @@ async function add(data) {
 
 async function get(id) {
   const user = await User.findById(id);
-  if (user === undefined) {
+  if (user === null) {
     throw new ErrorHandler(404, "user doesn't exists");
   }
   return {

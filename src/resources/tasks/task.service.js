@@ -4,15 +4,31 @@ const { ErrorHandler } = require('../../helpers/customError.js');
 async function add(data) {
   const task = new Task(data);
   await task.save();
-  return task;
+  return {
+    id: task._id,
+    order: task.order,
+    title: task.title,
+    description: task.description,
+    userId: task.userId,
+    boardId: task.boardId,
+    columnId: task.columnId
+  };
 }
 
 async function get(id) {
   const task = await Task.findById(id);
-  if (task) {
+  if (task === null) {
     throw new ErrorHandler(404, "task doesn't exists");
   }
-  return task;
+  return {
+    id: task._id,
+    order: task.order,
+    title: task.title,
+    description: task.description,
+    userId: task.userId,
+    boardId: task.boardId,
+    columnId: task.columnId
+  };
 }
 
 async function getAll(boardId) {
@@ -34,9 +50,19 @@ async function getAll(boardId) {
 }
 
 async function update(data, id) {
-  return await Task.findByIdAndUpdate(id, data, {
+  const task = await Task.findByIdAndUpdate(id, data, {
     new: true
   });
+
+  return {
+    id: task._id,
+    order: task.order,
+    title: task.title,
+    description: task.description,
+    userId: task.userId,
+    boardId: task.boardId,
+    columnId: task.columnId
+  };
 }
 
 async function del(id) {

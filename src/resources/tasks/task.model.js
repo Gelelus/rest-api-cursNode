@@ -8,7 +8,7 @@ const taskSchema = new Schema(
       trim: true
     },
     order: {
-      type: String,
+      type: Number,
       default: 'orderless',
       trim: true
     },

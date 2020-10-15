@@ -16,8 +16,9 @@ const boardSchema = new Schema(
 );
 
 // eslint-disable-next-line space-before-function-paren ,func-names
-boardSchema.pre('remove', async function(next) {
-  await Task.deleteMany({ boardId: this._id });
+boardSchema.pre('findOneAndDelete', async function(next) {
+  const boardId = this._conditions._id;
+  await Task.deleteMany({ boardId });
   next();
 });
 
