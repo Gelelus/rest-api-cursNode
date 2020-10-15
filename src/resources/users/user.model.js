@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 const Task = require('../tasks/task.model.js');
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 
 const userSchema = new Schema(
   {
@@ -36,14 +36,15 @@ userSchema.pre('findOneAndDelete', async function(next) {
   next();
 });
 
-// eslint-disable-next-line space-before-function-paren ,func-names
-userSchema.pre('save', async function(next) {
-  const user = this;
-  if (user.isModified('password')) {
-    user.password = await bcrypt.hash(user.password, 8);
-  }
-  next();
-});
+// // для будущей таски
+// // eslint-disable-next-line space-before-function-paren ,func-names
+// userSchema.pre('save', async function(next) {
+//   const user = this;
+//   if (user.isModified('password')) {
+//     user.password = await bcrypt.hash(user.password, 8);
+//   }
+//   next();
+// });
 
 const User = model('User', userSchema);
 module.exports = User;
