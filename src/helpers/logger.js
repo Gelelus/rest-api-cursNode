@@ -7,7 +7,7 @@ request query: ${JSON.stringify(req.query)}`);
 }
 
 function errorLogger(err) {
-  console.error(err.message);
+  console.error('error: ', err.message);
 }
 
 function unhandledRejectionLogger(err, promise) {
