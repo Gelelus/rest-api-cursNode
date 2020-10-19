@@ -1,5 +1,6 @@
 const uuid = require('uuid');
 
+const { ErrorHandler } = require('../../helpers/customError.js');
 const Task = require('../tasks/task.model');
 
 const usersMemory = [
@@ -49,7 +50,7 @@ class User {
       }
     }
 
-    throw new Error("user doesn't exist");
+    throw new ErrorHandler(404, "user doesn't exist");
   }
 
   static findByIdAndDelete(id) {
@@ -61,7 +62,7 @@ class User {
       }
     }
 
-    throw new Error("user doesn't exist");
+    throw new ErrorHandler(404, "user doesn't exist");
   }
 
   static insert(obj) {

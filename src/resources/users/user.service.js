@@ -1,4 +1,5 @@
 const User = require('./user.model');
+const { ErrorHandler } = require('../../helpers/customError.js');
 
 async function add(data) {
   const user = await User.insert(data);
@@ -12,7 +13,7 @@ async function add(data) {
 async function get(id) {
   const user = await User.findById(id);
   if (user === undefined) {
-    throw new Error("user doesn't exists");
+    throw new ErrorHandler(404, "user doesn't exists");
   }
   return {
     id: user.id,

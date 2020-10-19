@@ -2,9 +2,10 @@ const { Router } = require('express');
 
 const userRouter = require('./resources/users/user.router');
 const boardRouter = require('./resources/boards/board.router');
+const logger = require('./middleware/logger.handler');
 
 const mainRouter = Router();
-
+mainRouter.use(logger);
 mainRouter.use('/users', userRouter);
 mainRouter.use('/boards', boardRouter);
 

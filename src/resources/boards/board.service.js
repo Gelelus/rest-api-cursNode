@@ -1,4 +1,5 @@
 const Board = require('./board.model');
+const { ErrorHandler } = require('../../helpers/customError.js');
 
 async function add(data) {
   const board = await Board.insert(data);
@@ -8,7 +9,7 @@ async function add(data) {
 async function get(id) {
   const board = await Board.findById(id);
   if (board === undefined) {
-    throw new Error("board doesn't exists");
+    throw new ErrorHandler(404, "board doesn't exists");
   }
   return board;
 }
@@ -32,3 +33,4 @@ module.exports = {
   del,
   getAll
 };
+
