@@ -62,7 +62,6 @@ class Board {
 
   static insert(obj) {
     const board = new Board(obj);
-    console.log(board);
     boardsMemory.push(board);
     return board;
   }
