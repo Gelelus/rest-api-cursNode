@@ -14,4 +14,3 @@ router.put('/:boardId/tasks/:id', TaskController.updateTask);
 router.delete('/:boardId/tasks/:id', TaskController.deleteTask);
 
 module.exports = router;
-

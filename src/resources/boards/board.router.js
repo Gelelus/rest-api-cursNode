@@ -17,4 +17,3 @@ router.delete('/:id', BoardController.deleteBoard);
 router.use(taskRouter);
 
 module.exports = router;
-
