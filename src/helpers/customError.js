@@ -1,3 +1,5 @@
+const { errorLogger } = require('./logger');
+
 class ErrorHandler extends Error {
   constructor(statusCode, message) {
     super();
@@ -8,6 +10,7 @@ class ErrorHandler extends Error {
 
 const handleError = (err, res) => {
   const { statusCode, message } = err;
+  errorLogger(err);
   if (statusCode) {
     res.status(statusCode).json({
       status: 'error',
