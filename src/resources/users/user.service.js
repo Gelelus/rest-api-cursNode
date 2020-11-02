@@ -38,10 +38,18 @@ async function getAll() {
   ]);
 }
 
-async function update(data, id) {
-  const user = await User.findByIdAndUpdate(id, data, {
-    new: true
-  });
+// eslint-disable-next-line no-shadow
+async function update({ password, login, name }, id) {
+  const user = await User.findById(id);
+  if (user === null) {
+    throw new ErrorHandler(404, "user doesn't exists");
+  }
+
+  user.password = password;
+  user.login = login;
+  user.name = name;
+
+  await user.save();
 
   return {
     id: user._id,
@@ -55,10 +63,21 @@ async function del(id) {
   return { message: `user with id - ${id} was deleted` };
 }
 
+// eslint-disable-next-line no-shadow
+async function login({ password, login }) {
+  console.log(password, login);
+  const user = await User.findByCredentials(login, password);
+
+  const token = await user.generateAuthToken();
+
+  return { token };
+}
+
 module.exports = {
   add,
   get,
   update,
   del,
-  getAll
+  getAll,
+  login
 };
