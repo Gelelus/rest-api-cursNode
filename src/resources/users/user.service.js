@@ -40,10 +40,7 @@ async function getAll() {
 
 // eslint-disable-next-line no-shadow
 async function update({ password, login, name }, id) {
-  console.log(1231322413423);
-  console.log(id);
   const user = await User.findById(id);
-  console.log(user, 1231322413423);
   if (user === null) {
     throw new ErrorHandler(404, "user doesn't exists");
   }
