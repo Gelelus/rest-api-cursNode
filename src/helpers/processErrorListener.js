@@ -1,18 +1,9 @@
-module.exports = () => {
-  process.on('unhandledRejection', (err, promise) => {
-    console.error(
-      'Unhandled rejection (promise: ',
-      promise,
-      ', reason: ',
-      err,
-      ').'
-    );
-  });
+const {
+  unhandledRejectionLogger,
+  uncaughtExceptionLogger
+} = require('./logger');
 
-  process.on('uncaughtException', err => {
-    console.log('UNCAUGHT EXCEPTION ');
-    console.log(
-      `[Inside 'uncaughtException' event] ${err.stack}` || err.message
-    );
-  });
+module.exports = () => {
+  process.on('unhandledRejection', unhandledRejectionLogger);
+  process.on('uncaughtException', uncaughtExceptionLogger);
 };
